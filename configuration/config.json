@@ -1,0 +1,25 @@
+{
+    "musicBotIds" : {
+        "369208607126061057": {
+            "name": "24/7 🔊 | Standard",
+            "icon": "standard"
+        },
+        "577082479538733068": {
+            "name": "24/7 🔊 | Premium",
+            "icon": "premium"
+        },
+        "380673375904989185": {
+            "name": "24/7 🔊 | BETA",
+            "icon": "beta"
+        },
+        "823309067047927808": {
+            "name": "24/7 🔊 | Staging",
+            "icon": "staging"
+        }
+    },
+
+    "developer" : "DELUUXE#1608",
+    
+    "inviteUrl" : "https://invite.24-7music.com",
+    "supportUrl" : "https://discord.24-7music.com/"
+}
