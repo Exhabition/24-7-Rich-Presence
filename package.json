@@ -2,7 +2,7 @@
   "name": "24-7-rich-presence",
   "version": "1.0.0",
   "description": "yes",
-  "main": "index.js",
+  "main": "logic/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
