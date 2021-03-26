@@ -6,7 +6,7 @@ const { musicBotIds } = require('../configuration/config.json');
 const bot = new Client(process.env.TOKEN);
 
 bot.once('ready', async () => {
-    console.log(`Message scanner is ready`);
+    console.info(`Message scanner is ready`);
 });
 
 bot.on('messageCreate', async (message) => {
@@ -47,6 +47,7 @@ bot.on('messageCreate', async (message) => {
             }
         } else if (message.attachments && message.attachments.length > 0) {
             // If there is a image which has a filename it might be sending images instead of embeds
+            // TODO check if there is a better way to display filenames of images
             if (message.attachments[0] && message.attachments[0].filename) {
                 // Make sure it's an png image, this filters out .json files from mb exportqueue
                 if (message.attachments[0].filename.endsWith('.png')) {
@@ -55,10 +56,8 @@ bot.on('messageCreate', async (message) => {
                     songInfo.name = filteredTitle.slice(0, filteredTitle.length - '.png'.length);
                 }
             }
-            console.log(message.attachments);
         }
 
-        console.log(songInfo);
         // If there is any value which is null, then don't update the presence
         if (Object.values(songInfo).filter(item => item == null).length == 0) {
             updatePresence(songInfo, musicBotIds[message.author.id]);
