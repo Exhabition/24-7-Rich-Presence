@@ -10,8 +10,8 @@ radio streams, livestreams and more!<br>
 ![Upvotes Top.GG](https://top.gg/api/widget/upvotes/369208607126061057.svg)<br>
 
 #### Invites
-[Invite 24/7 🔊 with minimum permissions](https://invite.24-7music.com)
-[Invite 24/7 🔊 with administator permissions](https://discord.com/oauth2/authorize?client_id=369208607126061057&permissions=8&scope=bot%20applications.commands)
+[Invite 24/7 🔊 with minimum permissions](https://invite.24-7music.com)<br>
+[Invite 24/7 🔊 with administator permissions](https://discord.com/oauth2/authorize?client_id=369208607126061057&permissions=8&scope=bot%20applications.commands)<br>
 
 ### Supported
 ![Standard Icon](https://cdn.discordapp.com/avatars/369208607126061057/d976a0f1ae3a157dba7749cf5400cf37.png?size=20) Standard<br> 
