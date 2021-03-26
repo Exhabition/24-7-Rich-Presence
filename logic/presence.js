@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { Client } = require('discord-rpc');
-const { developer, inviteUrl, supportUrl } = require('../configuration/config.json');
+const { developer, inviteUrl } = require('../configuration/config.json');
 
 const RPC = new Client({
     transport: "ipc",
@@ -42,7 +42,7 @@ functions.updatePresence = function (songInfo, botInfo) {
     RPC.request('SET_ACTIVITY', {
         pid: process.pid,
         activity: {
-            state: songStation && songName ? `${songName}\nAudio Source: ${songStation}` : songName ? songName : songStation ? songStation : "Nothing",
+            state: songStation && songName ? `${songName} | Audio Source: ${songStation}` : songName ? songName : songStation ? songStation : "Nothing",
             details: "Listening to",
             timestamps: {
                 start: Date.now(),
@@ -54,7 +54,7 @@ functions.updatePresence = function (songInfo, botInfo) {
                 small_text: `Made by ${developer}`,
             },
             buttons: [{ label: `Invite`, url: inviteUrl },
-            { label: 'Song on Youtube', url: 'https://www.youtube.com/results?search_query=' + (encodeURIComponent(songName ? songName : '')) }],
+            { label: 'Song on YouTube', url: 'https://www.youtube.com/results?search_query=' + (encodeURIComponent(songName ? songName : '')) }],
         },
     }).catch(console.error);
 };
