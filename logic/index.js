@@ -58,8 +58,8 @@ bot.on('messageCreate', async (message) => {
             }
         }
 
-        // If there is any value which is null, then don't update the presence
-        if (Object.values(songInfo).filter(item => item == null).length == 0) {
+        // If none of the values are null, then update presence
+        if (!Object.values(songInfo).some(item => item != null)) {
             updatePresence(songInfo, musicBotIds[message.author.id]);
         }
     }
