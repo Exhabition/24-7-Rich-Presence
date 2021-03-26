@@ -8,11 +8,11 @@ const RPC = new Client({
 });
 
 RPC.on('ready', async () => {
-    console.log(`RP ready`);
+    console.info(`RP ready`);
 });
 
 RPC.on("connected", async () => {
-    console.log(`RP connected`);
+    console.info(`RP connected`);
 });
 
 RPC.login({
@@ -22,14 +22,27 @@ RPC.login({
 const functions = {};
 
 functions.updatePresence = function (songInfo, botInfo) {
+    // If there is not socket, don't attempt to change status
+    if (!RPC.transport.socket) return console.log(`No socket active`);
+
+    // Name and icon of the bot the users is listening to, see config files for all supported bot versions
     const botName = botInfo.name;
     const botIcon = botInfo.icon;
 
-    if (!RPC.transport.socket) return console.log(`No socket active`);
+    // Name and (optional) station of the song the user is listening too
+    const songName = songInfo.name;
+    const songStation = songInfo.station;
+
+    // Log the song and what we are trying to update the status too
+    console.info(`[UPDATING STATUS] Listening to ${botName}`);
+    console.info(`[SONG TITLE] ${songName}`);
+    console.info(`[SONG SOURCE] ${songStation}`);
+
+    // Make a set activity request ourselves
     RPC.request('SET_ACTIVITY', {
         pid: process.pid,
         activity: {
-            state: songInfo.station && songInfo.name ? `${songInfo.name}\nAudio Source: ${songInfo.station}` : songInfo.name ? songInfo.name : songInfo.station ? songInfo.station : "Nothing",
+            state: songStation && songName ? `${songName}\nAudio Source: ${songStation}` : songName ? songName : songStation ? songStation : "Nothing",
             details: "Listening to",
             timestamps: {
                 start: Date.now(),
