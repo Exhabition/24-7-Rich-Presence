@@ -54,7 +54,7 @@ functions.updatePresence = function (songInfo, botInfo) {
                 small_text: `Made by ${developer}`,
             },
             buttons: [{ label: `Invite`, url: inviteUrl },
-            { label: `Support`, url: supportUrl }],
+            { label: 'Song on Youtube', url: 'https://www.youtube.com/results?search_query=' + (encodeURIComponent(songName ? songName : '')) }],
         },
     }).catch(console.error);
 };
