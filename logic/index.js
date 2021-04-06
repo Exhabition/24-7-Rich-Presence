@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Client } = require('eris');
 const { updatePresence } = require('./presence');
 const { musicBotIds } = require('../configuration/config.json');
+const ms = require('ms');
 
 const bot = new Client(process.env.TOKEN);
 
@@ -16,6 +17,7 @@ bot.on('messageCreate', async (message) => {
         const songInfo = {
             name: null,
             station: "YouTube",
+            length: 0,
         };
 
         // Get info from embed if there is an embed
@@ -33,6 +35,19 @@ bot.on('messageCreate', async (message) => {
                 // If there is a field with stream link as the name, it's playing a radio, but we can't access the radio name without making a request ourselves
                 if (field.name && field.name.toLowerCase().includes('stream link')) {
                     songInfo.station = "Unknown";
+                }
+
+                // If permission attach files is off and user is playing queue, grab duration
+                if (field.name && field.name.toLowerCase().includes('duration')) {
+                    // Field is contains current progress and total duration, get duration - progress
+                    if (field.value.includes('/')) {
+                        const [progress, duration] = field.value.split('/');
+                        const timeLeft = stringToSeconds(duration.trim()) - stringToSeconds(progress.trim());
+
+                        songInfo.length = timeLeft;
+                    } else {
+                        songInfo.length = stringToSeconds(field.value);
+                    }
                 }
             }
 
@@ -72,6 +87,17 @@ function getNameFromDescription(description) {
     }
 
     return description;
+}
+
+function stringToSeconds(string) {
+    const stringArray = string.split(" ");
+
+    let totalTime = 0;
+    for (const stringTime of stringArray) {
+        totalTime += ms(stringTime);
+    }
+
+    return totalTime;
 }
 
 bot.connect();
