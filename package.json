@@ -1,6 +1,6 @@
 {
   "name": "24-7-rich-presence",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "yes",
   "main": "logic/index.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "discord-rpc": "^3.2.0",
     "dotenv": "^8.2.0",
-    "eris": "^0.14.0"
+    "eris": "^0.14.0",
+    "ms": "^2.1.3"
   }
 }
