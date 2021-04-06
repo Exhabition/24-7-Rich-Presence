@@ -27,28 +27,34 @@ bot.on('messageCreate', async (message) => {
 
             // Loop through all fields
             for (const field of currentEmbed.fields) {
-                // If a field has a name and the field has 'now playing' in the name, save the value of the embed as the name
-                if (field.name && field.name.toLowerCase().includes('now playing')) {
-                    songInfo.name = field.value;
-                }
+                if (field.name) {
+                    // Capitalization is not always the same :-(
+                    const fieldName = field.name.toLowerCase();
 
-                // If there is a field with stream link as the name, it's playing a radio, but we can't access the radio name without making a request ourselves
-                if (field.name && field.name.toLowerCase().includes('stream link')) {
-                    songInfo.station = "Unknown";
-                }
+                    // If a field has a name and the field has 'now playing' in the name, save the value of the embed as the name
+                    if (fieldName.includes('now playing')) {
+                        songInfo.name = field.value;
+                    }
 
-                // If permission attach files is off and user is playing queue, grab duration
-                if (field.name && field.name.toLowerCase().includes('duration')) {
-                    // Field is contains current progress and total duration, get duration - progress
-                    if (field.value.includes('/')) {
-                        const [progress, duration] = field.value.split('/');
-                        const timeLeft = stringToSeconds(duration.trim()) - stringToSeconds(progress.trim());
+                    // If there is a field with stream link as the name, it's playing a radio, but we can't access the radio name without making a request ourselves
+                    if (fieldName.includes('stream link')) {
+                        songInfo.station = "Unknown";
+                    }
 
-                        songInfo.length = timeLeft;
-                    } else {
-                        songInfo.length = stringToSeconds(field.value);
+                    // If permission attach files is off and user is playing queue, grab duration
+                    if (fieldName.includes('duration')) {
+                        // Field is contains current progress and total duration, get duration - progress
+                        if (field.value.includes('/')) {
+                            const [progress, duration] = field.value.split('/');
+                            const timeLeft = stringToSeconds(duration.trim()) - stringToSeconds(progress.trim());
+
+                            songInfo.length = timeLeft;
+                        } else {
+                            songInfo.length = stringToSeconds(field.value);
+                        }
                     }
                 }
+
             }
 
             // If the author.name contains 'now playing' there is either a [name](url) in the title or the description
