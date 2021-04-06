@@ -23,7 +23,7 @@ const functions = {};
 
 functions.updatePresence = function (songInfo, botInfo) {
     // If there is not socket, don't attempt to change status
-    if (!RPC.transport.socket) return console.log(`No socket active`);
+    if (!RPC.transport.socket) return console.info(`[RPC] No socket active`);
 
     // Name and icon of the bot the users is listening to, see config files for all supported bot versions
     const botName = botInfo.name;
@@ -37,11 +37,12 @@ functions.updatePresence = function (songInfo, botInfo) {
     // Log the song and what we are trying to update the status too
     console.info(`[UPDATING STATUS] Listening to ${botName}`);
     console.info(`[SONG TITLE] ${songName}`);
+    console.info(`[SONG LENGTH] ${songLength > 0 ? songLength : "Unknown"}`);
     console.info(`[SONG SOURCE] ${songStation}`);
 
     // Check which setting is on, elapsed or remaining (we need to be able to access the length of the song if we want to use "remaining")
     const timestampRequest = {};
-    if (timeLeft.toLowerCase() == "remaining" && songLength) {
+    if (timeLeft.toLowerCase() == "remaining" && songLength > 0) {
         timestampRequest["end"] = Date.now() + songLength;
     } else {
         timestampRequest["start"] = Date.now();
@@ -67,6 +68,8 @@ functions.updatePresence = function (songInfo, botInfo) {
     // Apply timestamp setting
     const typeOfTimestamp = Object.keys(timestampRequest)[0];
     activity.timestamps[typeOfTimestamp] = timestampRequest[typeOfTimestamp];
+
+    console.info(`[TIMESTAMP] Using '${typeOfTimestamp}' with ${timestampRequest[typeOfTimestamp]}`);
 
     // Make a set activity request ourselves
     RPC.request('SET_ACTIVITY', {
