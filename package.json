@@ -1,17 +1,18 @@
 {
   "name": "24-7-rich-presence",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "yes",
   "main": "logic/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./logic/index.js"
   },
   "author": "Exhabition",
   "license": "ISC",
   "dependencies": {
     "discord-rpc": "^3.2.0",
     "dotenv": "^8.2.0",
-    "eris": "^0.14.0",
+    "eris": "^0.15.1",
     "ms": "^2.1.3"
   }
 }

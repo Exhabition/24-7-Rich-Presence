@@ -61,7 +61,7 @@ functions.updatePresence = function (songInfo, botInfo) {
         },
         buttons: [{ label: `Invite`, url: inviteUrl },
         {
-            label: 'Song on YouTube', url: 'https://www.youtube.com/results?search_query=' + (encodeURIComponent(songName ? songName : '')),
+            label: 'Song on Spotify', url: 'https://open.spotify.com/search/' + (encodeURIComponent(songName ? songName : '')),
         }],
     };
 

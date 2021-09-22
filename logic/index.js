@@ -16,7 +16,7 @@ bot.on('messageCreate', async (message) => {
         // Default info
         const songInfo = {
             name: null,
-            station: "YouTube",
+            station: "Queue",
             length: 0,
         };
 
