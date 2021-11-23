@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { Client } = require('discord-rpc');
-const { developer, inviteUrl, timeLeft } = require('../configuration/config.json');
+const { developer, inviteUrl, timeLeft, showAudioSource } = require('../configuration/config.json');
 
 const RPC = new Client({
     transport: "ipc",
@@ -50,7 +50,7 @@ functions.updatePresence = function (songInfo, botInfo) {
 
     // Make an activity object so we can decide wether we use timestamps.start or timestamps.end
     const activity = {
-        state: songStation && songName ? `${songName} | Audio Source: ${songStation}` : songName ? songName : songStation ? songStation : "Nothing",
+        state: songStation && songName ? `${songName}${showAudioSource ? ` | Audio Source: ${songStation}` : ""}` : songName ? songName : songStation ? songStation : "Nothing",
         details: "Listening to",
         timestamps: {},
         assets: {
