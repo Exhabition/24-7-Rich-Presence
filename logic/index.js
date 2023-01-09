@@ -1,10 +1,13 @@
 require('dotenv').config();
-const { Client } = require('eris');
+const { Client, Constants } = require('eris');
 const { updatePresence } = require('./presence');
 const { musicBotIds } = require('../configuration/config.json');
 const ms = require('ms');
 
-const bot = new Client(process.env.TOKEN);
+const INTENTS = Constants.Intents;
+const bot = new Client(process.env.TOKEN, {
+    intents: INTENTS.guildMessages,
+});
 
 bot.once('ready', async () => {
     console.info(`Message scanner is ready`);
