@@ -12,7 +12,7 @@
   "dependencies": {
     "discord-rpc": "^3.2.0",
     "dotenv": "^8.2.0",
-    "eris": "^0.15.1",
+    "eris": "^0.17.1",
     "ms": "^2.1.3"
   }
 }
