@@ -31,5 +31,6 @@
     "inviteUrl" : "https://invite.24-7music.com",
 
     "timeLeft" : "elapsed",
-    "showAudioSource": true
+    "showAudioSource": true,
+    "showAlbumArtWhenPossible": true
 }

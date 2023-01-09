@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { Client } = require('discord-rpc');
-const { developer, inviteUrl, timeLeft, showAudioSource } = require('../configuration/config.json');
+const { developer, inviteUrl, timeLeft, showAudioSource, showAlbumArtWhenPossible } = require('../configuration/config.json');
 
 const RPC = new Client({
     transport: "ipc",
@@ -33,6 +33,8 @@ functions.updatePresence = function (songInfo, botInfo) {
     const songName = songInfo.name;
     const songLength = songInfo.length;
     const songStation = songInfo.station;
+    const songUrl = songInfo.url;
+    const songArt = songInfo.thumbnail;
 
     // Log the song and what we are trying to update the status too
     console.info(`[UPDATING STATUS] Listening to ${botName}`);
@@ -48,20 +50,22 @@ functions.updatePresence = function (songInfo, botInfo) {
         timestampRequest["start"] = Date.now();
     }
 
+    const audioUrl = songUrl ? songUrl : 'https://open.spotify.com/search/' + (encodeURIComponent(songName ? songName : ''));
+
     // Make an activity object so we can decide wether we use timestamps.start or timestamps.end
     const activity = {
         state: songStation && songName ? `${songName}${showAudioSource ? ` | Audio Source: ${songStation}` : ""}` : songName ? songName : songStation ? songStation : "Nothing",
         details: "Listening to",
         timestamps: {},
         assets: {
-            large_image: botIcon,
+            large_image: showAlbumArtWhenPossible && songArt ? songArt : botIcon,
             large_text: botName,
             small_image: "developer",
             small_text: `Made by ${developer}`,
         },
         buttons: [{ label: `Invite`, url: inviteUrl },
         {
-            label: 'Song on Spotify', url: 'https://open.spotify.com/search/' + (encodeURIComponent(songName ? songName : '')),
+            label: 'Song on Spotify', url: audioUrl,
         }],
     };
 

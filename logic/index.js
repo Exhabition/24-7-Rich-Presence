@@ -19,6 +19,8 @@ bot.on('messageCreate', async (message) => {
         // Default info
         const songInfo = {
             name: null,
+            thumbnail: null,
+            url: null,
             station: "Queue",
             length: 0,
         };
@@ -68,6 +70,16 @@ bot.on('messageCreate', async (message) => {
             // If there is footer text and the footer text starts with 'station:' the information after that is the station name
             if (currentEmbed.footer && currentEmbed.footer.text && currentEmbed.footer.text.toLowerCase().startsWith('station:')) {
                 songInfo.station = currentEmbed.footer.text.split('station: ')[1];
+            }
+
+            // If a URL is set, use that instead of the /search endpoint
+            if (currentEmbed.url) {
+                songInfo.url = currentEmbed.url;
+            }
+
+            // If an embed thumbnail is set, pass it along to use for dynamic thumbnail usage
+            if (currentEmbed.thumbnail && currentEmbed.thumbnail.url) {
+                songInfo.thumbnail = currentEmbed.thumbnail.url;
             }
         } else if (message.attachments && message.attachments.length > 0) {
             // If there is a image which has a filename it might be sending images instead of embeds
