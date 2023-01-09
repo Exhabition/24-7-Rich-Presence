@@ -38,8 +38,13 @@ radio streams, livestreams and more!<br>
 - A .env file with TOKEN=botToken<br>
   [Tutorial on how to create and add a bot](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
 
+## Optional
+After setting everything up correctly, you can change additional settings under the `clientSettings` key in `/configuration/config.json`
+
 ### Concept
 
 - Bot is waiting for messages of any of the 24/7 🔊 bots
 - When a message is sent, message get checked on song & station info
 - If the song info is present, update presence
+
+(for settings like `showAlbumArtWhenPossible` to work, disable the permission `Attach Files` for the 24/7 instance you are using)
