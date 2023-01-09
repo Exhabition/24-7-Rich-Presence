@@ -33,6 +33,7 @@
     "clientSettings": {
         "timeLeft" : "remaining",
         "showAudioSource": false,
-        "showAlbumArtWhenPossible": true
+        "showAlbumArtWhenPossible": true,
+        "showDeveloperCredit": true
     }
 }

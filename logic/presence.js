@@ -55,14 +55,17 @@ class PresenceClient {
             assets: {
                 large_image: this.settings.showAlbumArtWhenPossible && songArt ? songArt : botIcon,
                 large_text: this.settings.showAlbumArtWhenPossible && songArt ? songName : botName,
-                small_image: "developer",
-                small_text: `Made by ${developer}`,
             },
             buttons: [{ label: `Invite`, url: inviteUrl },
             {
                 label: 'Song on Spotify', url: audioUrl,
             }],
         };
+
+        if (this.settings.showDeveloperCredit) {
+            activity.assets.small_image = "developer";
+            activity.assets.small_text = `Made by ${developer}`;
+        }
 
         // Apply timestamp setting
         const typeOfTimestamp = Object.keys(timestampRequest)[0];
@@ -78,7 +81,7 @@ class PresenceClient {
     }
 
     loadSettings() {
-        const { timeLeft, showAudioSource, showAlbumArtWhenPossible } = clientSettings;
+        const { timeLeft, showAudioSource, showAlbumArtWhenPossible, showDeveloperCredit } = clientSettings;
 
         let timeLeftSetting = timeLeft;
         if (timeLeft && typeof timeLeft !== "string" || timeLeft && (timeLeft !== "elapsed" && timeLeft !== "remaining")) {
@@ -101,10 +104,18 @@ class PresenceClient {
             showAlbumArtWhenPossibleSetting = true;
         }
 
+        let showDeveloperCreditSetting = showDeveloperCredit;
+        if (showAudioSource && typeof showAudioSource !== "boolean") {
+            console.warn(`[RPC] Setting "showDeveloperCredit" should be a boolean "true" or "false"\nDefaulting to "true"`);
+
+            showDeveloperCreditSetting = true;
+        }
+
         this.settings = {
             timeLeft: timeLeftSetting ?? "remaining",
             showAudioSource: showAudioSourceSetting ?? false,
             showAlbumArtWhenPossible: showAlbumArtWhenPossibleSetting ?? true,
+            showDeveloperCredit: showDeveloperCreditSetting ?? true,
         }
     }
 
