@@ -30,7 +30,9 @@
     
     "inviteUrl" : "https://invite.24-7music.com",
 
-    "timeLeft" : "elapsed",
-    "showAudioSource": true,
-    "showAlbumArtWhenPossible": true
+    "clientSettings": {
+        "timeLeft" : "remaining",
+        "showAudioSource": false,
+        "showAlbumArtWhenPossible": true
+    }
 }

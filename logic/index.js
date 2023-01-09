@@ -1,8 +1,10 @@
 require('dotenv').config();
 const { Client, Constants } = require('eris');
-const { updatePresence } = require('./presence');
+const { PresenceClient } = require('./presence');
 const { musicBotIds } = require('../configuration/config.json');
 const ms = require('ms');
+
+const presenceClient = new PresenceClient();
 
 const INTENTS = Constants.Intents;
 const bot = new Client(process.env.TOKEN, {
@@ -96,7 +98,7 @@ bot.on('messageCreate', async (message) => {
 
         // If none of the values are null, then update presence
         if (!Object.values(songInfo).some(item => item === null)) {
-            updatePresence(songInfo, musicBotIds[message.author.id]);
+            presenceClient.updatePresence(songInfo, musicBotIds[message.author.id]);
         }
     }
 });
